@@ -202,3 +202,11 @@ Commit your changes and let's host our docs online.
 
 [How to import](https://docs.readthedocs.io/en/stable/intro/import-guide.html)
 
+This step is not so difficult but rather important. The docs may be found
+[here](https://dxfeed-cyrtd.readthedocs-hosted.com/)
+
+## Prettify
+
+Now let's make your RtD looks like RtD. Just follow the 
+[tutorial](https://sphinx-rtd-theme.readthedocs.io/en/latest/installing.html)
+
