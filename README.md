@@ -235,3 +235,39 @@ def build(setup_kwargs):
         'zip_safe': False})
 ```
 
+**Read the Docs configuration:** you have to put a tick into "Install Project"
+in the "Advanced" section of your project section.
+
+**pyproject.toml modifications:**
+
+- Add `build = 'build.py'` into `[tool.poetry]` section
+- Into `[tool.poetry.dependencies]` section add:
+```
+cython = "^0.29.13"
+sphinx = { version = "^2.2", optional = true }
+sphinx_rtd_theme = { version = "^0.4.3", optional = true  }
+
+
+[tool.poetry.extras]
+docs = ["sphinx", "sphinx_rtd_theme"]
+```
+
+**.readthedocs.yml** For RtD you need to specify `pip` installation
+method and other settings.
+
+```
+version: 2
+
+python:
+  install:
+    - method: pip
+      path: .
+      extra_requirements:
+        - docs
+
+sphinx:
+  configuration: docs/source/conf.py
+``` 
+
+According to the documentation and discussions on github issues this
+should be enough.

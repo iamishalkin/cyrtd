@@ -3,9 +3,17 @@ name = "cyrtd"
 version = "0.1.0"
 description = ""
 authors = ["Ivan Mishalkin <iamishalkin@gmail.com>"]
+build = 'build.py'
 
 [tool.poetry.dependencies]
 python = "^3.7"
+cython = "^0.29.13"
+sphinx = { version = "^2.2", optional = true }
+sphinx_rtd_theme = { version = "^0.4.3", optional = true  }
+
+
+[tool.poetry.extras]
+docs = ["sphinx", "sphinx_rtd_theme"]
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
