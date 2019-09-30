@@ -14,7 +14,11 @@ import sphinx_rtd_theme
 # import os
 # import sys
 # sys.path.insert(0, os.path.abspath('../..'))
+import configparser
 
+config = configparser.ConfigParser()
+config.read('../../pyproject.toml')
+# version = config['tool.poetry']['version'][1:-1]
 
 # -- Project information -----------------------------------------------------
 
