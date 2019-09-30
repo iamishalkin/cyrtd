@@ -271,3 +271,12 @@ sphinx:
 
 According to the documentation and discussions on github issues this
 should be enough.
+
+**However!** This did not work for me completely. On RtD side I always
+got the error related to the absence of `setup.py`. I did not find the
+better way to solve this issue than to write wrapper over `build.py` in
+`setup.py`. So here we are:
+
+```python
+
+```  
