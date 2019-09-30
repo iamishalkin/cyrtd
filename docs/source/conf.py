@@ -18,7 +18,7 @@ import configparser
 
 config = configparser.ConfigParser()
 config.read('../../pyproject.toml')
-# version = config['tool.poetry']['version'][1:-1]
+version = config['tool.poetry']['version'][1:-1]
 
 # -- Project information -----------------------------------------------------
 
