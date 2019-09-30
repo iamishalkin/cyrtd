@@ -210,4 +210,107 @@ This step is not so difficult but rather important. The docs may be found
 Now let's make your RtD looks like RtD. Just follow the 
 [tutorial](https://sphinx-rtd-theme.readthedocs.io/en/latest/installing.html)
 
-## Cython
+## Cython part
+
+Now let's move to the Cython part. First of all, next to the `pymod` 
+folder we create `cymod` folder with similar contents, but written in
+Cython.
+
+To compile Cython files during the installation with poetry `build.py`
+should be created.
+
+ ```python
+from setuptools import Extension
+from Cython.Build import cythonize
+
+cyfuncs_ext = Extension(name='cyrtd.cymod.cyfuncs',
+                        sources=['cyrtd/cymod/cyfuncs.pyx'])
+
+EXTENSIONS = [cyfuncs_ext]
+
+
+def build(setup_kwargs):
+    setup_kwargs.update({
+        'ext_modules': cythonize(EXTENSIONS, language_level=3),
+        'zip_safe': False})
+```
+
+**Read the Docs configuration:** you have to put a tick into "Install Project"
+in the "Advanced" section of your project section.
+
+**pyproject.toml modifications:**
+
+- Add `build = 'build.py'` into `[tool.poetry]` section
+- Into `[tool.poetry.dependencies]` section add:
+```
+cython = "^0.29.13"
+sphinx = { version = "^2.2", optional = true }
+sphinx_rtd_theme = { version = "^0.4.3", optional = true  }
+
+
+[tool.poetry.extras]
+docs = ["sphinx", "sphinx_rtd_theme"]
+```
+
+**Sphinx modifications:** To display Cython functions we need to add new 
+module to our `.rst` files. In our case you just need to add following
+strings to `api.rst`:
+```
+Cy functions
+------------
+
+.. automodule:: cyrtd.cymod.cyfuncs
+	:members:
+	:inherited-members:
+```
+
+**.readthedocs.yml** For RtD you need to specify `pip` installation
+method and other settings.
+
+```
+version: 2
+
+python:
+  install:
+    - method: pip
+      path: .
+      extra_requirements:
+        - docs
+
+sphinx:
+  configuration: docs/source/conf.py
+``` 
+
+
+According to the documentation and discussions on github issues this
+should be enough.
+
+**However!** This did not work for me completely. On RtD side I always
+got the error related to the absence of `setup.py`. I did not find the
+better way to solve this issue than to write wrapper over `build.py` in
+`setup.py`. So here we are:
+
+```python
+from distutils.core import setup
+from build import *
+
+global setup_kwargs
+
+setup_kwargs = {}
+
+build(setup_kwargs)
+setup(**setup_kwargs)
+```
+
+Some people also face an issue with cached virtual envs. It is
+recommended to go to "Versions" section in you RtD dashboard and wipe the 
+environments. 
+
+## Finally
+
+We have combined Cython, ReadtheDocs and Spinx. The result may be seen
+[here](https://dxfeed-cyrtd.readthedocs-hosted.com/en/latest/index.html).
+This step-by-step tutorial was made as there was no anything similar and I
+hope, this should be useful for someone.
+
+All the comments about workaround over `setup.py` will be appreciated.
