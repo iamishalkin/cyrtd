@@ -1,1 +1,4 @@
-__version__ = '0.1.1'
+import configparser
+
+config = configparser.ConfigParser()
+__version__ = config['tool.poetry']['version'][1:-1]
