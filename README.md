@@ -281,6 +281,14 @@ sphinx:
   configuration: docs/source/conf.py
 ``` 
 
+As we point at the path here the following lines of code should be 
+commented in `conf.py`:
+
+```python
+# import os
+# import sys
+# sys.path.insert(0, os.path.abspath('../..'))
+```
 
 According to the documentation and discussions on github issues this
 should be enough.
