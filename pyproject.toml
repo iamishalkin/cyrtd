@@ -7,8 +7,12 @@ build = 'build.py'
 
 [tool.poetry.dependencies]
 python = "^3.7"
-sphinx = "^2.2"
-sphinx_rtd_theme = "^0.4.3"
+
+sphinx = { version = "^2.2", optional = true }
+sphinx_rtd_theme = { version = "^0.4.3", optional = true  }
+
+[tool.poetry.extras]
+docs = ["sphinx", "sphinx_rtd_theme"]
 
 [tool.poetry.dev-dependencies]
 pytest = "^3.0"
