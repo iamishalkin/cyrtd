@@ -314,3 +314,36 @@ This step-by-step tutorial was made as there was no anything similar and I
 hope, this should be useful for someone.
 
 All the comments about workaround over `setup.py` will be appreciated.
+
+The final project structure:
+```
+│   .gitignore
+│   .readthedocs.yml
+│   build.py
+│   pyproject.toml
+│   README.md
+│   setup.py
+│
+├───cyrtd
+│   │   __init__.py
+│   │
+│   ├───cymod
+│   │       cyfuncs.pyx
+│   │       __init__.py
+│   │
+│   └───pymod
+│           pyfuncs.py
+│           __init__.py
+│
+└───docs
+    │   make.bat
+    │   Makefile
+    │
+    └───source
+        │   api.rst
+        │   conf.py
+        │   index.rst
+        │
+        ├───_static
+        └───_templates
+```
