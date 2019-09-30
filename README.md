@@ -210,3 +210,28 @@ This step is not so difficult but rather important. The docs may be found
 Now let's make your RtD looks like RtD. Just follow the 
 [tutorial](https://sphinx-rtd-theme.readthedocs.io/en/latest/installing.html)
 
+## Cython part
+
+Now let's move to the Cython part. First of all, next to the `pymod` 
+folder we create `cymod` folder with similar contents, but written in
+Cython.
+
+To compile Cython files during the installation with poetry `build.py`
+should be created.
+
+ ```python
+from setuptools import Extension
+from Cython.Build import cythonize
+
+cyfuncs_ext = Extension(name='cyrtd.cymod.cyfuncs',
+                        sources=['cyrtd/cymod/cyfuncs.pyx'])
+
+EXTENSIONS = [cyfuncs_ext]
+
+
+def build(setup_kwargs):
+    setup_kwargs.update({
+        'ext_modules': cythonize(EXTENSIONS, language_level=3),
+        'zip_safe': False})
+```
+

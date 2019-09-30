@@ -7,6 +7,9 @@ __pycache__/
 *.so
 
 .idea*
+
+Pipfile*
+poetry*
 # Distribution / packaging
 .Python
 build/
