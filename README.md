@@ -252,6 +252,18 @@ sphinx_rtd_theme = { version = "^0.4.3", optional = true  }
 docs = ["sphinx", "sphinx_rtd_theme"]
 ```
 
+**Sphinx modifications:** To display Cython functions we need to add new 
+module to our `.rst` files. In our case you just need to add following
+strings to `api.rst`:
+```
+Cy functions
+------------
+
+.. automodule:: cyrtd.cymod.cyfuncs
+	:members:
+	:inherited-members:
+```
+
 **.readthedocs.yml** For RtD you need to specify `pip` installation
 method and other settings.
 
@@ -278,5 +290,26 @@ better way to solve this issue than to write wrapper over `build.py` in
 `setup.py`. So here we are:
 
 ```python
+from distutils.core import setup
+from build import *
 
-```  
+global setup_kwargs
+
+setup_kwargs = {}
+
+build(setup_kwargs)
+setup(**setup_kwargs)
+```
+
+Some people also face an issue with cached virtual envs. It is
+recommended to go to "Versions" section in you RtD dashboard and wipe the 
+environments. 
+
+## Finally
+
+We have combined Cython, ReadtheDocs and Spinx. The result may be seen
+[here](https://dxfeed-cyrtd.readthedocs-hosted.com/en/latest/index.html).
+This step-by-step tutorial was made as there was no anything similar and I
+hope, this should be useful for someone.
+
+All the comments about workaround over `setup.py` will be appreciated.
