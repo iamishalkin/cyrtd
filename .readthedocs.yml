@@ -5,7 +5,7 @@ python:
     - method: pip
       path: .
       extra_requirements:
-        - docs/source
+        - docs
 
 sphinx:
   configuration: docs/source/conf.py
