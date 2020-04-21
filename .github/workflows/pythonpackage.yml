@@ -49,9 +49,8 @@ jobs:
           uses: actions/setup-python@v1
           with:
             python-version: ${{ matrix.python-version }}
-    # Run developer tasks
     - name: Install dependencies
-      uses: abatilo/actions-poetry@v1.5.0 # https://github.com/marketplace?type=actions&query=poetry
+      uses: abatilo/actions-poetry@v1.5.0
       with: install --no-root
     - name: Run tests
       run: |
