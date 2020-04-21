@@ -20,8 +20,8 @@ jobs:
 
       steps:
         uses: actions/checkout@v2
-          with:
-            submodules: true
+        with:
+          submodules: true
         - name: Set up Python ${{ matrix.python-version }}
           uses: actions/setup-python@v1
           with:
@@ -43,8 +43,8 @@ jobs:
 
       steps:
         uses: actions/checkout@v2
-          with:
-            submodules: true
+        with:
+          submodules: true
         - name: Set up Python ${{ matrix.python-version }}
           uses: actions/setup-python@v1
           with:
@@ -72,8 +72,8 @@ jobs:
 
       steps:
         uses: actions/checkout@v2
-          with:
-            submodules: true
+        with:
+          submodules: true
         - name: Set up Python ${{ matrix.python-version }}
           uses: actions/setup-python@v1
           with:
