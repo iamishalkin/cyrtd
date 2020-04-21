@@ -19,20 +19,20 @@ jobs:
       runs-on: ${{ matrix.os }}
 
       steps:
-        - uses: actions/checkout@v2
-          with:
-            submodules: true
-        - name: Set up Python ${{ matrix.python-version }}
-          uses: actions/setup-python@v1
-          with:
-            python-version: ${{ matrix.python-version }}
-        - name: Install package artifact
-          uses: abatilo/actions-poetry@v1.5.0
-          with: install --no-root --no-dev --extras "taskipy"
-          run: |
-            task build -f sdist
-            pip install dist/cyrtd*
-            pip uninstall dxfeed
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install package artifact
+        uses: abatilo/actions-poetry@v1.5.0
+        with: install --no-root --no-dev --extras "taskipy"
+        run: |
+          task build -f sdist
+          pip install dist/cyrtd*
+          pip uninstall dxfeed
   build:
     strategy:
       matrix:
@@ -42,23 +42,23 @@ jobs:
       runs-on: ${{ matrix.os }}
 
       steps:
-        - uses: actions/checkout@v2
-          with:
-            submodules: true
-        - name: Set up Python ${{ matrix.python-version }}
-          uses: actions/setup-python@v1
-          with:
-            python-version: ${{ matrix.python-version }}
-        - name: Install dependencies
-          uses: abatilo/actions-poetry@v1.5.0
-          with: install --no-root
-        - name: Run tests
-          run: |
-            task test
-        - name: Generate doc
-          run: |
-            task html_docs
-          if: matrix.os == 'ubuntu-latest'
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        uses: abatilo/actions-poetry@v1.5.0
+        with: install --no-root
+      - name: Run tests
+        run: |
+          task test
+      - name: Generate doc
+        run: |
+          task html_docs
+        if: matrix.os == 'ubuntu-latest'
 #       send zip after generation
 
   publishing:
@@ -70,18 +70,18 @@ jobs:
       runs-on: ${{ matrix.os }}
 
       steps:
-        - uses: actions/checkout@v2
-          with:
-            submodules: true
-        - name: Set up Python ${{ matrix.python-version }}
-          uses: actions/setup-python@v1
-          with:
-            python-version: ${{ matrix.python-version }}
-        - name: Install dependencies
-          uses: abatilo/actions-poetry@v1.5.0
-          with: install --no-root
-        - name: Publish to PyPI
-          run: |
-            task build
-            poetry config repositories.testpypi https://test.pypi.org/legacy/
-            poetry publish -r testpypi -u ${{ secrets.PYPI_USERNAME }} -p ${{ secrets.PYPI_PASSWORD }}
+      - uses: actions/checkout@v2
+        with:
+          submodules: true
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: Install dependencies
+        uses: abatilo/actions-poetry@v1.5.0
+        with: install --no-root
+      - name: Publish to PyPI
+        run: |
+          task build
+          poetry config repositories.testpypi https://test.pypi.org/legacy/
+          poetry publish -r testpypi -u ${{ secrets.PYPI_USERNAME }} -p ${{ secrets.PYPI_PASSWORD }}
