@@ -19,9 +19,9 @@ jobs:
       runs-on: ${{ matrix.os }}
 
       steps:
-        uses: actions/checkout@v2
-        with:
-          submodules: true
+        - uses: actions/checkout@v2
+          with:
+            submodules: true
         - name: Set up Python ${{ matrix.python-version }}
           uses: actions/setup-python@v1
           with:
@@ -42,9 +42,9 @@ jobs:
       runs-on: ${{ matrix.os }}
 
       steps:
-        uses: actions/checkout@v2
-        with:
-          submodules: true
+        - uses: actions/checkout@v2
+          with:
+            submodules: true
         - name: Set up Python ${{ matrix.python-version }}
           uses: actions/setup-python@v1
           with:
@@ -71,9 +71,9 @@ jobs:
       runs-on: ${{ matrix.os }}
 
       steps:
-        uses: actions/checkout@v2
-        with:
-          submodules: true
+        - uses: actions/checkout@v2
+          with:
+            submodules: true
         - name: Set up Python ${{ matrix.python-version }}
           uses: actions/setup-python@v1
           with:
