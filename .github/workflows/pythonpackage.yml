@@ -28,7 +28,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install poetry
       uses: abatilo/actions-poetry@v1.5.0
-      with: install --no-root --no-dev --extras "taskipy"
+      with:
+        args: install --no-root --no-dev --extras "taskipy"
     - name: Install package artifact
       run: |
         task build -f sdist
@@ -52,7 +53,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       uses: abatilo/actions-poetry@v1.5.0
-      with: install --no-root
+      with:
+        args: install --no-root
     - name: Run tests
       run: |
         task test
@@ -80,7 +82,8 @@ jobs:
         python-version: ${{ matrix.python-version }}
     - name: Install dependencies
       uses: abatilo/actions-poetry@v1.5.0
-      with: install --no-root
+      with:
+        args: install --no-root
     - name: Publish to PyPI
       run: |
         task build
