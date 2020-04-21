@@ -6,15 +6,16 @@
 
 # -- Path setup --------------------------------------------------------------
 
-# If extensions (or modules to document with autodoc) are in another directory,
-# add these directories to sys.path here. If the directory is relative to the
-# documentation root, use os.path.abspath to make it absolute, like shown here.
-#
-import sphinx_rtd_theme
-# import os
-# import sys
-# sys.path.insert(0, os.path.abspath('../..'))
+import sys
+# import toml
+from pathlib import Path
+from pygments.lexers.python import CythonLexer
+from sphinx.highlighting import lexers
 
+# pyproject = toml.load(Path(__file__).parents[1].joinpath('pyproject.toml'))
+# -- Path setup --------------------------------------------------------------
+
+sys.path.append(str(Path(__file__).parents[2]))
 
 # -- Project information -----------------------------------------------------
 
@@ -24,7 +25,7 @@ author = 'Ivan'
 
 # The full version, including alpha/beta/rc tags
 # release = '0.0.1'
-version = '0.0.4'
+version ='0.0.5'
 
 # -- General configuration ---------------------------------------------------
 
@@ -33,10 +34,11 @@ version = '0.0.4'
 # ones.
 extensions = [
     'sphinx.ext.autodoc',
-    'sphinx.ext.napoleon',
-    'sphinx.ext.intersphinx',
-    'sphinx_rtd_theme'
+    'sphinx.ext.coverage',
+    'sphinx.ext.napoleon',  # numpy style docstrings
+    'sphinx.ext.intersphinx'
 ]
+
 
 master_doc = 'index'
 # Add any paths that contain templates here, relative to this directory.
@@ -53,9 +55,11 @@ exclude_patterns = []
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
 #
-html_theme = 'sphinx_rtd_theme'
+html_theme = 'alabaster'
 
 # Add any paths that contain custom static files (such as style sheets) here,
 # relative to this directory. They are copied after the builtin static files,
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
+
+source_suffix = '.rst'
