@@ -30,10 +30,10 @@ jobs:
       run: |
         curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
         echo "::add-path::$HOME/.poetry/bin"
-        poetry config virtualenvs.create false
       shell: bash
     - name: Set poetry env
       run: |
+        poetry config virtualenvs.create false
         poetry install --no-root --no-dev --extras taskipy
       shell: bash
     - name: Install package artifact
