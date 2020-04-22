@@ -29,11 +29,10 @@ jobs:
     - name: Install poetry
       run: |
         pip install poetry
-#        curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-#        echo "::add-path::$HOME/.poetry/bin"
       shell: bash
     - name: Set poetry env
       run: |
+        poetry config settings.virtualenv.create false
         poetry install --no-root --no-dev
         pip install taskipy cython
         task build -f sdist
@@ -41,6 +40,7 @@ jobs:
       shell: bash
     - name: Install package artifact
       run: |
+        pip install --user --upgrade setuptools
         pip install dist/cyrtd*
         pip uninstall dxfeed
       shell: bash
