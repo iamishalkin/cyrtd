@@ -34,7 +34,6 @@ jobs:
       run: |
         poetry config virtualenvs.create false
         poetry install --no-root --no-dev
-        pip install  --upgrade setuptools
         pip install taskipy cython
         task build -f sdist
         pip uninstall --yes taskipy cython
@@ -49,7 +48,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: [3.5, 3.6, 3.7, 3.8]
+        python-version: [3.7]
 
     runs-on: ${{ matrix.os }}
 
@@ -62,17 +61,22 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install poetry
-      run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+      run: |
+        pip install poetry
       shell: bash
     - name: Set poetry env
-      run: poetry install --no-root
+      run: |
+        poetry config virtualenvs.create false
+        poetry install --no-root
       shell: bash
     - name: Run tests
       run: |
         task test
+      shell: bash
     - name: Generate doc
       run: |
         task html_docs
+      shell: bash
       if: matrix.os == 'ubuntu-latest'
 #       send zip after generation
 
@@ -94,13 +98,17 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install poetry
-      run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+      run: |
+        pip install poetry
       shell: bash
     - name: Set poetry env
-      run: poetry install --no-root --no-dev --extras "taskipy"
+      run: |
+        poetry config virtualenvs.create false
+        poetry install --no-root
       shell: bash
     - name: Publish to PyPI
       run: |
         task build
         poetry config repositories.testpypi https://test.pypi.org/legacy/
         poetry publish -r testpypi -u ${{ secrets.PYPI_USERNAME }} -p ${{ secrets.PYPI_PASSWORD }}
+      shell: bash
