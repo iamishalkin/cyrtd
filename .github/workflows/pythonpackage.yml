@@ -35,9 +35,9 @@ jobs:
     - name: Set poetry env
       run: |
         poetry install --no-root --no-dev
-        pip install taskipy
+        pip install taskipy cython
         task build -f sdist
-        pip uninstall taskipy
+        pip uninstall taskipy cython
       shell: bash
     - name: Install package artifact
       run: |
