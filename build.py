@@ -4,7 +4,7 @@ from setuptools.dist import Distribution
 
 try:
     from Cython.Build import cythonize
-except ImportError:
+except:
     use_cython = False
     ext = 'c'
     ext_pp = 'cpp'
