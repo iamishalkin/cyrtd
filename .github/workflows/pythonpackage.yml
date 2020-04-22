@@ -42,6 +42,7 @@ jobs:
         task build -f sdist
         pip install dist/cyrtd*
         pip uninstall dxfeed
+      shell: bash
   build:
     needs: installation
     strategy:
