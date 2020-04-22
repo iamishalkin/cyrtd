@@ -29,7 +29,7 @@ jobs:
     - name: Install poetry
       run: |
         curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
-        export PATH="$HOME/.poetry/bin:$PATH"
+        echo "::add-path::$HOME/.poetry/bin"
       shell: bash
     - name: Set poetry env
       run: |
