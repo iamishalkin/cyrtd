@@ -34,13 +34,13 @@ jobs:
       run: |
         poetry config virtualenvs.create false
         poetry install --no-root --no-dev
+        pip install  --upgrade setuptools
         pip install taskipy cython
         task build -f sdist
         pip uninstall --yes taskipy cython
       shell: bash
     - name: Install package artifact
       run: |
-        pip install --user --upgrade setuptools
         pip install dist/cyrtd*
         pip uninstall dxfeed
       shell: bash
