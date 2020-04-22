@@ -113,6 +113,7 @@ jobs:
         else
           find type -f -iname *.tar.gz -delete
         fi
+      shell: bash
     - name: Publish to PyPI
       run: |
         task build
