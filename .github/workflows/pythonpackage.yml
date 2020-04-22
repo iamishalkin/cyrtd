@@ -13,7 +13,7 @@ jobs:
   installation:
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest, macos-latest]
+        os: [windows-latest, macos-latest]
         python-version: [3.6]
 
     runs-on: ${{ matrix.os }}
