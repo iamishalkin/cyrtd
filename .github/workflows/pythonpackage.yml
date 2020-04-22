@@ -38,7 +38,7 @@ jobs:
       shell: bash
     - name: Install package artifact
       run: |
-        task build -f sdist
+        python -m taskipy.cli build -f sdist
         pip install dist/cyrtd*
         pip uninstall dxfeed
       shell: bash
