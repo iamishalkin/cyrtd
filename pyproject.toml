@@ -8,6 +8,7 @@ build = 'build.py'
 [tool.poetry.dependencies]
 python = "^3.6"
 pandas = "^0.25.1"
+taskipy = "^1.2.1"
 
 [tool.poetry.dev-dependencies]
 cython = "^0.29.13"
