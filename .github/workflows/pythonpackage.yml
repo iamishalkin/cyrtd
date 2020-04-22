@@ -38,7 +38,7 @@ jobs:
       shell: bash
     - name: Install package artifact
       run: |
-        poetry run task build -f sdist
+        task build -f sdist
         pip install dist/cyrtd*
         pip uninstall dxfeed
   build:
