@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
-        python-version: [3.6, 3.7, 3.8]
+        python-version: [3.6]
 
     runs-on: ${{ matrix.os }}
 
@@ -34,12 +34,10 @@ jobs:
       shell: bash
     - name: Set poetry env
       run: |
-        poetry shell
-        poetry install --no-root --no-dev --extras taskipy
+        python -m poetry install --no-root --no-dev --extras taskipy
       shell: bash
     - name: Install package artifact
       run: |
-        poetry shell |
         task build -f sdist
         pip install dist/cyrtd*
         pip uninstall dxfeed
