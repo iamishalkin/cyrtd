@@ -109,9 +109,9 @@ jobs:
     - name: Remove redundant files
       run: |
         if [ "$RUNNER_OS" == "Linux" ]; then
-          find dist/ type -f -iname *.whl -delete
+          find dist/ type f -iname *.whl -delete
         else
-          find dist/ type -f -iname *.tar.gz -delete
+          find dist/ type f -iname *.tar.gz -delete
         fi
       shell: bash
     - name: Publish to PyPI
