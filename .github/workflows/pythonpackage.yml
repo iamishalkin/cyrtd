@@ -106,6 +106,13 @@ jobs:
         poetry config virtualenvs.create false
         poetry install --no-root
       shell: bash
+    - name: Remove redundant files
+      run: |
+        if [ "$RUNNER_OS" == "Linux" ]; then
+          find type -f -iname *.whl -delete
+        else
+          find type -f -iname *.tar.gz -delete
+        fi
     - name: Publish to PyPI
       run: |
         task build
