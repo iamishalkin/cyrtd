@@ -27,15 +27,18 @@ jobs:
       with:
         python-version: ${{ matrix.python-version }}
     - name: Install poetry
-      uses: abatilo/actions-poetry@v1.5.0
-      with:
-        args: install --no-root --no-dev --extras "taskipy"
+      run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+      shell: bash
+    - name: Set poetry env
+      run: poetry install --no-root --no-dev --extras "taskipy"
+      shell: bash
     - name: Install package artifact
       run: |
         task build -f sdist
         pip install dist/cyrtd*
         pip uninstall dxfeed
   build:
+    needs: installation
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -51,10 +54,12 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      uses: abatilo/actions-poetry@v1.5.0
-      with:
-        args: install --no-root
+    - name: Install poetry
+      run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+      shell: bash
+    - name: Set poetry env
+      run: poetry install --no-root
+      shell: bash
     - name: Run tests
       run: |
         task test
@@ -65,6 +70,7 @@ jobs:
 #       send zip after generation
 
   publishing:
+    needs: [installation, build]
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -80,10 +86,12 @@ jobs:
       uses: actions/setup-python@v1
       with:
         python-version: ${{ matrix.python-version }}
-    - name: Install dependencies
-      uses: abatilo/actions-poetry@v1.5.0
-      with:
-        args: install --no-root
+    - name: Install poetry
+      run: curl -sSL https://raw.githubusercontent.com/python-poetry/poetry/master/get-poetry.py | python
+      shell: bash
+    - name: Set poetry env
+      run: poetry install --no-root --no-dev --extras "taskipy"
+      shell: bash
     - name: Publish to PyPI
       run: |
         task build
