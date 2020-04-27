@@ -76,5 +76,5 @@ jobs:
       run: |
         task html_docs
       shell: bash
-      if: matrix.os == 'ubuntu-latest'
+      if: matrix.os == 'ubuntu-latest' && matrix.python-version == 3.7
 #       send zip after generation
