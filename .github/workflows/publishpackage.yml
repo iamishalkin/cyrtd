@@ -53,7 +53,7 @@ jobs:
         uses: actions/upload-artifact@v1
         with:
           name: dist
-          path: ./dist/*
+          path: ../dist/*
 
 
   publish:
@@ -62,7 +62,7 @@ jobs:
     steps:
       - name: Clear dist folder
         run: |
-          rm -rf ./dist
+          rm -rf ../dist
       - name: Download
         uses: actions/download-artifact@v1
         with:
