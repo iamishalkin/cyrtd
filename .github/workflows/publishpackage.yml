@@ -46,14 +46,15 @@ jobs:
           else
             find dist/ -type f -iname *.tar.gz -delete
           fi
-          ls
+          echo $(pwd)
+          echo $(ls)
         shell: bash
       - name: Upload artifacts
         if: success()
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v2
         with:
-          name: dist
-          path: ../dist/*
+          name: artifacts
+          path: dist/
 
 
   publish:
@@ -64,9 +65,10 @@ jobs:
         run: |
           rm -rf ../dist
       - name: Download
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v2
         with:
-          name: dist
+          name: artifacts
+          path: dist/
       - name: Publish to PyPI
         if: success()
         run: |
