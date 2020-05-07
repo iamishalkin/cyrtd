@@ -3,11 +3,13 @@ name: Publish package
 
 on:
   push:
+    branches:
+      - master
     tags:
     - '*'
 
 jobs:
-  publishing:
+  build:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest, macos-latest]
@@ -45,9 +47,26 @@ jobs:
             find dist/ -type f -iname *.tar.gz -delete
           fi
         shell: bash
+      - name: Upload artifacts
+        if: success()
+        uses: actions/upload-artifact@v1
+          with:
+            name: packages
+            path: dist/*
+
+
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Clear dist folder
+        run: |
+          rm -rf dist
+      - name: Download
+        uses: actions/download-artifact@v1
+        with:
+          name: packages
       - name: Publish to PyPI
         if: success()
         run: |
-          poetry config repositories.testpypi https://test.pypi.org/legacy/
-          poetry publish -r testpypi -u ${{ secrets.PYPI_USERNAME }} -p ${{ secrets.PYPI_PASSWORD }}
+          ls
         shell: bash
