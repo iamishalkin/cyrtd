@@ -46,13 +46,14 @@ jobs:
           else
             find dist/ -type f -iname *.tar.gz -delete
           fi
+          ls
         shell: bash
       - name: Upload artifacts
         if: success()
         uses: actions/upload-artifact@v1
         with:
           name: dist
-          path: dist/*
+          path: ./dist/*
 
 
   publish:
@@ -61,7 +62,7 @@ jobs:
     steps:
       - name: Clear dist folder
         run: |
-          rm -rf dist
+          rm -rf ./dist
       - name: Download
         uses: actions/download-artifact@v1
         with:
