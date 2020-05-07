@@ -3,8 +3,6 @@ name: Publish package
 
 on:
   push:
-    branches:
-      - master
     tags:
     - '*'
 
@@ -63,7 +61,7 @@ jobs:
     steps:
       - name: Clear dist folder
         run: |
-          rm -rf ../dist
+          rm -rf dist/
       - name: Download
         uses: actions/download-artifact@v2
         with:
@@ -72,5 +70,6 @@ jobs:
       - name: Publish to PyPI
         if: success()
         run: |
-          ls
+          poetry config repositories.testpypi https://test.pypi.org/legacy/
+          poetry publish -r testpypi -u ${{ secrets.PYPI_USERNAME }} -p ${{ secrets.PYPI_PASSWORD }}
         shell: bash
