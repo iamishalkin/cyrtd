@@ -50,9 +50,9 @@ jobs:
       - name: Upload artifacts
         if: success()
         uses: actions/upload-artifact@v1
-          with:
-            name: packages
-            path: dist/*
+        with:
+          name: packages
+          path: dist/*
 
 
   publish:
