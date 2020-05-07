@@ -51,7 +51,7 @@ jobs:
         if: success()
         uses: actions/upload-artifact@v1
         with:
-          name: packages
+          name: dist
           path: dist/*
 
 
@@ -64,7 +64,7 @@ jobs:
       - name: Download
         uses: actions/download-artifact@v1
         with:
-          name: packages
+          name: dist
       - name: Publish to PyPI
         if: success()
         run: |
