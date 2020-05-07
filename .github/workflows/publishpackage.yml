@@ -59,6 +59,11 @@ jobs:
     runs-on: ubuntu-latest
     needs: build
     steps:
+      - name: Install poetry
+        run: |
+          pip install poetry
+          poetry config virtualenvs.create false
+        shell: bash
       - name: Clear dist folder
         run: |
           rm -rf dist/
