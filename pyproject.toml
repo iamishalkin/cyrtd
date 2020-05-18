@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "cyrtd"
-version = "0.1.7"
+version = "0.1.10"
 description = ""
 authors = ["Ivan Mishalkin <iamishalkin@gmail.com>"]
 build = 'build.py'
