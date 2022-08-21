@@ -120,7 +120,7 @@ def square(num: Union[int, float]):
 ```
 I prefer NumPy style documentation, so here we are.
 
-## Spinx settings
+## Sphinx settings
 
 Probably the most important file, related to sphinx, is `conf.py`. A couple
 of important things.
